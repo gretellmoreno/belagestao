@@ -1,0 +1,35 @@
+export default function AppointmentForm({ onClose, isEditing: isEditingProp = false, appointmentId }: AppointmentFormProps) {
+  const { appointments, addAppointment, loadAppointmentsByDate, updateAppointment } = useAppointments();
+  const [showServices, setShowServices] = useState(false);
+  const [clients, setClients] = useState<Client[]>([]);
+  const [professionals, setProfessionals] = useState<Professional[]>([]);
+  const [services, setServices] = useState<ServiceType[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(isEditingProp);
+  const [customPrices, setCustomPrices] = useState<Record<string, number>>({});
+  const [customTimes, setCustomTimes] = useState<Record<string, number>>({});
+  const loadingRef = useRef(false);
+  const [isSpontaneous, setIsSpontaneous] = useState(false);
+  
+  // Estado para controlar la visibilidad secuencial de los campos
+  const [formStep, setFormStep] = useState(1);
+  
+  // Nuevos estados para el tiempo
+  const [showTimeEditing, setShowTimeEditing] = useState(false);
+  const [editingServiceTime, setEditingServiceTime] = useState<string | null>(null);
+  const [timesConfirmed, setTimesConfirmed] = useState(false);
+
+  // Configuração direta do formData
+  const [formData, setFormData] = useState<FormData>({
+    client_id: '',
+    professional_id: '',
+    services: [] as ServiceType[],
+    date: format(new Date(), 'yyyy-MM-dd'),
+    time: '',
+    notes: '',
+    duration: 30,
+    custom_times: {}
+  });
+  const [submitting, setSubmitting] = useState(false);
+} 

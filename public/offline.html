@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BelaGestão - Offline</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #4f46e5;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+        }
+        
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background: #4338ca;
+        }
+        
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📶</div>
+        <h1>Você está offline</h1>
+        <p>Parece que você perdeu a conexão com a internet. Verifique sua conexão e tente novamente.</p>
+        <button onclick="window.location.reload()">Tentar Novamente</button>
+    </div>
+    
+    <script>
+        // Verificar periodicamente se a conexão foi restaurada
+        setInterval(() => {
+            if (navigator.onLine) {
+                window.location.reload();
+            }
+        }, 5000);
+    </script>
+</body>
+</html> 

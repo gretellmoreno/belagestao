@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Criar Ícones Temporários</title>
+</head>
+<body>
+    <h1>Gerando ícones temporários...</h1>
+    <div id="status"></div>
+    
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        function createIcon(size) {
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Fundo gradiente
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#6366f1');
+            gradient.addColorStop(1, '#818cf8');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Texto BG
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${size * 0.4}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('BG', size/2, size/2);
+            
+            return canvas.toDataURL('image/png');
+        }
+        
+        async function saveIcons() {
+            const status = document.getElementById('status');
+            
+            for (const size of sizes) {
+                try {
+                    const dataUrl = createIcon(size);
+                    
+                    // Converter data URL para blob
+                    const response = await fetch(dataUrl);
+                    const blob = await response.blob();
+                    
+                    // Criar link de download
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `icon-${size}x${size}.png`;
+                    link.click();
+                    
+                    status.innerHTML += `✅ Ícone ${size}x${size} criado<br>`;
+                    
+                    // Pequena pausa entre downloads
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                } catch (error) {
+                    status.innerHTML += `❌ Erro ao criar ícone ${size}x${size}: ${error.message}<br>`;
+                }
+            }
+            
+            status.innerHTML += '<br><strong>✅ Todos os ícones foram gerados!</strong><br>';
+            status.innerHTML += '<br>📁 Salve todos os ícones na pasta <code>public/icons/</code>';
+        }
+        
+        // Executar quando a página carregar
+        window.addEventListener('load', saveIcons);
+    </script>
+</body>
+</html> 

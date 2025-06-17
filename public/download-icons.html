@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baixar Ícones - BelaGestão</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        .button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 0;
+            display: block;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+        .button:hover {
+            background: #4f46e5;
+        }
+        .status {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+        }
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        .preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .icon-preview {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 5px;
+            background: white;
+        }
+        .instructions {
+            background: #fffbeb;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Baixar Ícones PWA</h1>
+        
+        <div class="instructions">
+            <h3>📋 Instruções:</h3>
+            <ol>
+                <li>Clique no botão abaixo para baixar todos os ícones</li>
+                <li>Salve os arquivos baixados na pasta <code>public/icons/</code></li>
+                <li>Recarregue sua aplicação</li>
+                <li>Teste novamente o PWA no celular</li>
+            </ol>
+        </div>
+        
+        <button class="button" onclick="downloadAllIcons()">
+            📥 Baixar Todos os Ícones (8 arquivos)
+        </button>
+        
+        <div id="status" class="status"></div>
+        
+        <div class="preview" id="preview"></div>
+    </div>
+
+    <script>
+        const iconSizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        
+        function createIcon(size) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Fundo gradiente
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#6366f1');
+            gradient.addColorStop(1, '#818cf8');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Texto BG
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${size * 0.4}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('BG', size/2, size/2);
+            
+            return canvas.toDataURL('image/png');
+        }
+        
+        function showPreview() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '<h3>🔍 Preview dos Ícones:</h3>';
+            
+            iconSizes.forEach(size => {
+                const dataUrl = createIcon(size);
+                const img = document.createElement('img');
+                img.src = dataUrl;
+                img.width = Math.min(size, 64);
+                img.height = Math.min(size, 64);
+                img.title = `${size}x${size}px`;
+                img.className = 'icon-preview';
+                preview.appendChild(img);
+            });
+        }
+        
+        async function downloadAllIcons() {
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            status.className = 'status success';
+            status.innerHTML = '⏳ Gerando ícones...';
+            
+            let count = 0;
+            
+            for (const size of iconSizes) {
+                try {
+                    const dataUrl = createIcon(size);
+                    
+                    // Converter para blob
+                    const response = await fetch(dataUrl);
+                    const blob = await response.blob();
+                    
+                    // Criar link de download
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `icon-${size}x${size}.png`;
+                    link.style.display = 'none';
+                    
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    count++;
+                    status.innerHTML = `✅ Baixando ícones... (${count}/${iconSizes.length})`;
+                    
+                    // Pausa pequena entre downloads
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                    
+                } catch (error) {
+                    console.error(`Erro ao criar ícone ${size}x${size}:`, error);
+                }
+            }
+            
+            status.innerHTML = `🎉 Sucesso! ${count} ícones baixados. Salve todos na pasta <strong>public/icons/</strong>`;
+        }
+        
+        // Mostrar preview quando carregar
+        window.addEventListener('load', showPreview);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,103 @@
+{
+  "hash": "eeb5e423",
+  "configHash": "e91dd460",
+  "lockfileHash": "e3b0c442",
+  "browserHash": "15a08835",
+  "optimized": {
+    "@supabase/supabase-js": {
+      "src": "../../node_modules/@supabase/supabase-js/dist/module/index.js",
+      "file": "@supabase_supabase-js.js",
+      "fileHash": "2e59ffaf",
+      "needsInterop": false
+    },
+    "date-fns": {
+      "src": "../../node_modules/date-fns/index.mjs",
+      "file": "date-fns.js",
+      "fileHash": "2ef95801",
+      "needsInterop": false
+    },
+    "date-fns/locale": {
+      "src": "../../node_modules/date-fns/locale.mjs",
+      "file": "date-fns_locale.js",
+      "fileHash": "e033363a",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "05fbb37d",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "505fb6da",
+      "needsInterop": true
+    },
+    "react-datepicker": {
+      "src": "../../node_modules/react-datepicker/dist/es/index.js",
+      "file": "react-datepicker.js",
+      "fileHash": "f6a4d36a",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "c280cd64",
+      "needsInterop": true
+    },
+    "react-hot-toast": {
+      "src": "../../node_modules/react-hot-toast/dist/index.mjs",
+      "file": "react-hot-toast.js",
+      "fileHash": "3c451282",
+      "needsInterop": false
+    },
+    "react-number-format": {
+      "src": "../../node_modules/react-number-format/dist/react-number-format.es.js",
+      "file": "react-number-format.js",
+      "fileHash": "91351bdf",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "6dd8a1cd",
+      "needsInterop": false
+    },
+    "react-toastify": {
+      "src": "../../node_modules/react-toastify/dist/index.mjs",
+      "file": "react-toastify.js",
+      "fileHash": "0d105a57",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-LNJWJNFR": {
+      "file": "chunk-LNJWJNFR.js"
+    },
+    "browser-J6IYAAS7": {
+      "file": "browser-J6IYAAS7.js"
+    },
+    "browser-2YNC6QW7": {
+      "file": "browser-2YNC6QW7.js"
+    },
+    "chunk-KKBLSUHS": {
+      "file": "chunk-KKBLSUHS.js"
+    },
+    "chunk-7W32CK3N": {
+      "file": "chunk-7W32CK3N.js"
+    },
+    "chunk-PH4L3SJA": {
+      "file": "chunk-PH4L3SJA.js"
+    },
+    "chunk-UHINIFCJ": {
+      "file": "chunk-UHINIFCJ.js"
+    },
+    "chunk-W4EHDCLL": {
+      "file": "chunk-W4EHDCLL.js"
+    },
+    "chunk-EWTE5DHJ": {
+      "file": "chunk-EWTE5DHJ.js"
+    }
+  }
+}

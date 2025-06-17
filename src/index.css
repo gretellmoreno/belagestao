@@ -1,0 +1,305 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globais para garantir responsividade */
+:root {
+  --app-height: 100%;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: 100vw;
+  min-height: var(--app-height);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  min-height: var(--app-height);
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Prevenir rolagem horizontal em containers */
+.container {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+/* Ajustes específicos para agenda em dispositivos móveis */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Corrigir z-index do header mobile */
+  .mobile-header-container {
+    z-index: 1000 !important;
+  }
+  
+  /* Garantir que o menu mobile apareça corretamente */
+  .mobile-menu-overlay {
+    z-index: 999 !important;
+  }
+  
+  .mobile-menu-content {
+    z-index: 1001 !important;
+  }
+  
+  /* Garantir que botões de fechar tenham prioridade máxima */
+  .mobile-close-button {
+    z-index: 1002 !important;
+    position: relative !important;
+    pointer-events: auto !important;
+  }
+  
+  /* Otimização específica para a agenda */
+  .agenda-container {
+    height: calc(100vh - 120px) !important;
+    min-height: calc(100vh - 120px) !important;
+  }
+  
+  /* Reduzir padding em cards de agendamento em mobile */
+  .appointment-card {
+    padding: 2px 4px !important;
+    font-size: 10px !important;
+  }
+  
+  /* Ajustar popup menu para mobile */
+  .time-slot-popup {
+    transform: scale(0.9);
+    transform-origin: top left;
+  }
+  
+  /* Garantir que elementos fixos fichem sempre visíveis em mobile */
+  .sticky-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .sticky-time-column {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 40 !important;
+    background-color: white !important;
+    border-right: 1px solid #e5e7eb !important;
+  }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 360px) {
+  html {
+    font-size: 12px;
+  }
+  
+  .agenda-container {
+    height: calc(100vh - 100px) !important;
+    min-height: calc(100vh - 100px) !important;
+  }
+  
+  .container {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+  
+  /* Garantir elementos fixos em telas muito pequenas */
+  .excel-header,
+  .sticky-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;
+  }
+  
+  .excel-time-column,
+  .sticky-time-column {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 40 !important;
+  }
+}
+
+/* Ajustes para orientação landscape em mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .agenda-container {
+    height: calc(100vh - 80px) !important;
+    min-height: calc(100vh - 80px) !important;
+  }
+}
+
+/* Melhorar a experiência de toque em dispositivos móveis */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    touch-action: manipulation;
+  }
+}
+
+/* Garantir que elementos flexíveis não ultrapassem seus containers */
+.flex, .flex-1, .flex-auto {
+  min-width: 0;
+}
+
+/* Melhorar a visibilidade da barra de rolagem em dispositivos Windows */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  * {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Prevenir comportamientos de zoom y mejorar la experiencia táctil */
+@layer base {
+  html {
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    @apply antialiased text-gray-900;
+    touch-action: pan-x pan-y;
+    overscroll-behavior: none;
+  }
+  
+  /* Prevenir zoom en inputs en iOS */
+  input, 
+  textarea, 
+  select, 
+  button {
+    @apply text-base;
+    touch-action: manipulation;
+  }
+  
+  /* Eliminar resaltado al tocar elementos */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Mejorar experiencia de desplazamiento */
+  .overflow-y-auto,
+  .overflow-y-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+}
+
+.react-datepicker {
+  @apply bg-white border border-gray-200 rounded-lg shadow-lg;
+}
+
+.react-datepicker__header {
+  @apply bg-gray-50 border-b border-gray-200 rounded-t-lg;
+}
+
+.react-datepicker__current-month {
+  @apply text-gray-900 font-semibold py-2;
+}
+
+.react-datepicker__day-name {
+  @apply text-gray-500 w-8 py-2;
+}
+
+.react-datepicker__day {
+  @apply w-8 py-2 text-gray-700 hover:bg-gray-100 rounded-full;
+}
+
+.react-datepicker__day--selected {
+  @apply bg-indigo-600 text-white hover:bg-indigo-700;
+}
+
+.react-datepicker__day--today {
+  @apply font-semibold;
+}
+
+.react-datepicker__navigation {
+  @apply top-2;
+}
+
+.react-datepicker__navigation--previous {
+  @apply left-2;
+}
+
+.react-datepicker__navigation--next {
+  @apply right-2;
+}
+
+.react-datepicker-popper {
+  @apply z-50;
+}
+
+/* Estilos específicos para comportamento tipo Excel */
+.excel-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.excel-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.excel-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.excel-time-column {
+  position: sticky;
+  left: 0;
+  z-index: 30;
+  background-color: white;
+  border-right: 2px solid #e5e7eb;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Garantir que agendamentos não sobreponham elementos fixos */
+.appointment-card {
+  z-index: 20 !important;
+}
+
+/* Melhorar comportamento em dispositivos touch */
+@media (hover: none) and (pointer: coarse) {
+  .excel-content {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  
+  .sticky-header, 
+  .sticky-time-column,
+  .excel-header,
+  .excel-time-column {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}

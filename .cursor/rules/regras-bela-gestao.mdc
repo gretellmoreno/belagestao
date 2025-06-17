@@ -1,0 +1,49 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+📋 Regras de Organização e Qualidade do Código – Projeto BelaGestão
+
+🧱 1. Limite de Tamanho por Arquivo
+- Nenhum arquivo pode ultrapassar 1000 linhas de código real.
+- Quando necessário, divida por responsabilidade (ex: .api, .model, .utils, .types).
+- Utilize pastas por domínio funcional (ex: /appointments, /clients, /services).
+
+🧩 2. Componentes, Funções e Interfaces Pequenos
+- Nenhuma função, componente ou interface deve passar de 200 linhas.
+- Funções grandes devem ser divididas em helpers menores e reutilizáveis.
+
+🧹 3. Código Morto (Dead Code)
+- Qualquer variável, função, tipo ou import que não esteja sendo utilizado deve ser removido.
+- Ferramentas como ESLint e TypeScript (com noUnusedLocals) devem ser usadas para ajudar nessa limpeza.
+
+✅ 4. Validação Técnica Obrigatória
+- O projeto deve passar sem warnings em:
+  - `tsc --noUnusedLocals`
+  - `eslint`
+- Todo PR precisa passar pelas validações de lint e types.
+
+📂 5. Estrutura de Pastas por Domínio
+- Cada área do sistema deve estar separada em uma pasta própria:
+  Exemplo:
+    /appointments
+      ├─ appointments.api.ts
+      ├─ appointments.model.ts
+      ├─ appointments.utils.ts
+      ├─ appointments.types.ts
+
+📅 6. Compatibilidade Temporária com Prazo
+- Campos legados (como `services`, `custom_prices`, `services_relations`, etc.) devem conter:
+  - Comentário com `@deprecated`
+  - Data planejada para remoção
+- Após migração para nova estrutura, esses campos devem ser eliminados.
+
+🔍 7. Uso Rastreável de Dados
+- Todo campo presente no banco ou interface deve:
+  - Ser utilizado ativamente no sistema
+  - Estar documentado na interface correta
+- Caso contrário, o campo deve ser removido do código e da tabela.
+
+📌 Observação Final:
+Essas regras têm como objetivo manter o código limpo, modular, sustentável e fácil de dar manutenção à medida que o projeto cresce.
