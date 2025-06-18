@@ -10,8 +10,8 @@ export async function checkDatabaseConnection() {
 
 // Função para verificar as credenciais do Supabase
 export async function logDatabaseInfo() {
-  const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
   
   console.log('Informações de conexão Supabase:');
   console.log('URL:', supabaseUrl);
@@ -26,8 +26,8 @@ export async function logDatabaseInfo() {
 // Verificar se a tabela existe sem fazer requisição
 export async function checkTableExists(tableName: string) {
   try {
-    const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
     
     if (!supabaseUrl || !supabaseAnonKey) {
       return {
