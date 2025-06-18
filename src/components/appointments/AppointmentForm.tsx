@@ -1,18 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useAppointments } from '../../contexts/AppointmentContext';
-import { useProfessionals } from '../../contexts/ProfessionalContext';
-import { useServices } from '../../contexts/ServiceContext';
-import { useClients } from '../../contexts/ClientContext';
-import type { Appointment } from '../../lib/appointmentService';
-import type { Client } from '../../lib/clientService';
-import type { Professional } from '../../lib/professionalService';
-import { createAppointment, updateAppointment, deleteAppointment } from '../../lib/appointmentService';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
-import { Search, Phone, X, Calendar, Clock, Users, User, Edit, Check, MapPin, ShoppingBag } from 'lucide-react';
+import { Search, Phone, X, Calendar, Clock, Users, User, Edit, Check, MapPin, ShoppingBag, ChevronDown, Pencil, ChevronLeft, ChevronRight } from 'lucide-react';
 import { format, parseISO, addDays, isAfter, isBefore, isToday } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { supabase } from '../../lib/supabaseClient';
-import { normalizeTime, formatAppointmentDateTime, formatDateToLocal, getCurrentDateLocal } from '../../lib/dateUtils';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -26,6 +16,7 @@ import { getServices } from '../../lib/serviceService';
 import { 
   getAppointmentsByDate, 
   createAppointment, 
+  updateAppointment,
   deleteAppointment as deleteAppointmentService,
   convertServiceNamesToIds,
   mapCustomValuesToIds,
@@ -1677,7 +1668,7 @@ export default function AppointmentForm({ onClose, isEditing: isEditingProp = fa
 
     return (
       <div className="grid grid-cols-4 gap-1 mt-4">
-        {allTimeSlotsWithStatus.map((slotInfo, index) => {
+        {allTimeSlotsWithStatus.map((slotInfo: { time: string; isAvailable: boolean }, index: number) => {
           if (!slotInfo || !slotInfo.time) {
             return null;
           }
