@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import { format, isToday, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import TimeSlots from '../components/appointments/TimeSlots';
+import { AgendaMonitor } from '../components/appointments/AgendaMonitor';
 import type { Appointment as AppointmentType } from '../lib/appointmentService';
 import { ChevronLeft, ChevronRight, CalendarIcon, X } from 'lucide-react';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -533,6 +534,12 @@ function AppointmentsContent() {
               onTouchEnd={handleTouchEnd}
               className="bg-white rounded-lg shadow-sm overflow-hidden"
             >
+              {/* Monitor de diagnóstico da agenda */}
+              <AgendaMonitor 
+                currentDate={format(selectedDate, 'yyyy-MM-dd')}
+                isActive={true}
+              />
+              
               <TimeSlots 
                 selectedDate={selectedDate} 
                 onEditAppointment={handleEditAppointment as any} 
@@ -667,6 +674,12 @@ function AppointmentsContent() {
 
             {/* TimeSlots para visualização dos agendamentos */}
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+              {/* Monitor de diagnóstico da agenda */}
+              <AgendaMonitor 
+                currentDate={format(selectedDate, 'yyyy-MM-dd')}
+                isActive={true}
+              />
+              
               <TimeSlots 
                 selectedDate={selectedDate} 
                 onEditAppointment={handleEditAppointment as any} 
