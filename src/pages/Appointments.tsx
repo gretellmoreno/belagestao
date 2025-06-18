@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import { format, isToday, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import TimeSlots from '../components/appointments/TimeSlots';
-import { AgendaMonitor } from '../components/appointments/AgendaMonitor';
+
 import type { Appointment as AppointmentType } from '../lib/appointmentService';
 import { ChevronLeft, ChevronRight, CalendarIcon, X } from 'lucide-react';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -362,7 +362,7 @@ function AppointmentsContent() {
       // Criar uma versão limpa do agendamento removendo campos problemáticos
       const safeAppointment = {
         id: appointment.id,
-        client_id: appointment.client?.id || '',
+        client_id: typeof appointment.client === 'object' ? appointment.client?.id || '' : '',
         client_name: typeof appointment.client === 'object' ? appointment.client.name : '',
         professional_id: appointment.professional_id || '',
         professional_name: appointment.professional as string,
@@ -534,12 +534,6 @@ function AppointmentsContent() {
               onTouchEnd={handleTouchEnd}
               className="bg-white rounded-lg shadow-sm overflow-hidden"
             >
-              {/* Monitor de diagnóstico da agenda */}
-              <AgendaMonitor 
-                currentDate={format(selectedDate, 'yyyy-MM-dd')}
-                isActive={true}
-              />
-              
               <TimeSlots 
                 selectedDate={selectedDate} 
                 onEditAppointment={handleEditAppointment as any} 
@@ -674,12 +668,6 @@ function AppointmentsContent() {
 
             {/* TimeSlots para visualização dos agendamentos */}
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-              {/* Monitor de diagnóstico da agenda */}
-              <AgendaMonitor 
-                currentDate={format(selectedDate, 'yyyy-MM-dd')}
-                isActive={true}
-              />
-              
               <TimeSlots 
                 selectedDate={selectedDate} 
                 onEditAppointment={handleEditAppointment as any} 
@@ -693,9 +681,6 @@ function AppointmentsContent() {
               <div className="bg-white rounded-3xl shadow-xl w-full max-w-md max-h-[90vh] overflow-hidden relative">
                 <div className="p-4 overflow-y-auto">
                   <AppointmentForm 
-                    selectedDate={selectedDate} 
-                    editAppointment={editAppointment} 
-                    onCancelEdit={handleCancelEdit}
                     onClose={() => setShowForm(false)}
                   />
                 </div>
