@@ -1,12 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 import { isValidUUID, getNullUUID } from './uuidUtils';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Verificar se as variáveis de ambiente estão definidas
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Variáveis de ambiente VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY são necessárias para conectar ao Supabase.');
+  console.error('Variáveis de ambiente NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_ANON_KEY são necessárias para conectar ao Supabase.');
 }
 
 // Criar o cliente Supabase
